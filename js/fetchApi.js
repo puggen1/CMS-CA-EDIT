@@ -22,7 +22,8 @@ fetchApi(posts);
 async function createAndShow(first, second){
         let result = "";
         let eachMonth = "";
-        for(months of first){
+        let sortedMonths = sortMonths(first);
+        for(months of sortedMonths){
             eachMonth += `<h2> ${months.name} </h2>`;
             for(let i = 0; i < second.length; i++){
                 if(second[i].categories[0] == months.id){
@@ -46,3 +47,12 @@ async function startProcess(catID, postCatId){
     createAndShow(categoryId, postCategoryId);
 }
 startProcess(category, posts);
+
+
+// quick function to sort months
+function sortMonths(months){
+    let monthsSorted = months.sort(function (a,b){
+        return a.slug - b.slug;
+    });
+   return monthsSorted
+}
