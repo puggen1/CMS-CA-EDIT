@@ -17,7 +17,8 @@ async function fetchApi(api){
 }
 fetchApi(posts);
 
-//use sort instead?
+
+//shows data but not in right order, maybe need to fix months api
 async function createAndShow(first, second){
         let result = "";
         let eachMonth = "";
