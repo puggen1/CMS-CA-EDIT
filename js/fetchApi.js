@@ -1,5 +1,5 @@
 console.log("hello from fetchApi");
-
+let category = "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/categories";
 let posts = "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/posts?per_page=25";
 let eventDiv = document.querySelector(".events");
 
@@ -13,20 +13,35 @@ async function fetchApi(api){
     catch(error){
        console.log(error); 
     }
-   
+
+}
+fetchApi(posts);
+
+//use sort instead?
+async function createAndShow(first, second){
+        let result = "";
+        let eachMonth = "";
+        for(months of first){
+            eachMonth += `<h2> ${months.name} </h2>`;
+            for(let i = 0; i < second.length; i++){
+                if(second[i].categories[0] == months.id){
+                    eachMonth += `<p> ${second[i].title.rendered} </p>`;
+                }
+                else{
+                    continue;
+                }
+            result += eachMonth;
+            //remove data for next loop
+            eachMonth = "";
+        } 
+        }
+    eventDiv.innerHTML = result;
 }
 
-//function to show api on page
-async function showApi(api){
-    let response = await fetchApi(api);
-    let output = "";
-    for(posts of response){
-        output += `<p> ${posts.title.rendered}</p>`;
-    }
-    eventDiv.innerHTML = output;
+    
+async function startProcess(catID, postCatId){
+    let categoryId = await fetchApi(catID);
+    let postCategoryId = await fetchApi(postCatId);
+    createAndShow(categoryId, postCategoryId);
 }
-
-// run test
-showApi(posts);
-
-
+startProcess(category, posts);
