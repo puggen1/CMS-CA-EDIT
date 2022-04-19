@@ -1,6 +1,7 @@
 console.log("hello from fetchApi");
 let category = "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/categories";
 let posts = "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/posts?per_page=25";
+let tags = "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/tags?per_page=25"
 let eventDiv = document.querySelector(".events");
 
 //universal function to fetch
@@ -18,20 +19,23 @@ async function fetchApi(api){
 fetchApi(posts);
 
 
+
 //shows data but not in right order, maybe need to fix months api
-async function createAndShow(first, second){
+async function createAndShow(months, events){
+        await tagHandler(tags);
         let result = "";
         let eachMonth = "";
-        let sortedMonths = sortMonths(first);
-        for(months of sortedMonths){
-            eachMonth += `<h2> ${months.name} </h2>`;
-            for(let i = 0; i < second.length; i++){
-                if(second[i].categories[0] == months.id){
-                    eachMonth += `<p> ${second[i].title.rendered} </p>`;
+        let sortedMonths = sortMonths(months);
+        for(let months of sortedMonths){
+            eachMonth += `</div><div class="${months.name}"><h2> ${months.name} </h2>`; // spør lasse om dette
+            for(let i = 0; i < events.length; i++){
+                if(events[i].categories[0] == months.id){
+                    eachMonth += `<p> ${events[i].title.rendered} </p>`;
                 }
                 else{
                     continue;
                 }
+                
             result += eachMonth;
             //remove data for next loop
             eachMonth = "";
@@ -40,6 +44,12 @@ async function createAndShow(first, second){
     eventDiv.innerHTML = result;
 }
 
+
+async function tagHandler(tags) {
+    let tag = await fetchApi(tags);
+
+    console.log(tag);
+}
     
 async function startProcess(catID, postCatId){
     let categoryId = await fetchApi(catID);
@@ -56,3 +66,13 @@ function sortMonths(months){
     });
    return monthsSorted
 }
+
+
+/* IDER 
+3 = Styret
+15 = Student    
+16 = Lærer
+
+
+
+*/
