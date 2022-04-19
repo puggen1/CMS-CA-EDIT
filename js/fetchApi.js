@@ -69,9 +69,8 @@ async function createAndShow(months, events, filter) {
   console.log(events)
 }
 
-
-
 async function startProcess(catID, postCatId, filter="all") {
+
     
   let categoryId = await fetchApi(catID);
   let postCategoryId = await fetchApi(postCatId);
@@ -91,4 +90,5 @@ function sortMonths(months) {
   });
   return monthsSorted;
 }
+
 
