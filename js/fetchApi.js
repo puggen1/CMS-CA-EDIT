@@ -10,9 +10,17 @@ tag = [];
 post = [];
 category = [];
 let studBtn = document.querySelector("#student");
+let laererBtn = document.querySelector("#laerer");
+let styretBtn = document.querySelector("#styret");
 document.querySelector("body").onload = startProcess();
 
 studBtn.addEventListener("click", function () {
+  filterTest()
+});
+laererBtn.addEventListener("click", function () {
+  filterTest()
+});
+styretBtn.addEventListener("click", function () {
   filterTest()
 });
 
@@ -43,21 +51,19 @@ async function startProcess(filter = "all") {
 function filterTest() {
   startProcess(event.target.id);
 
-}
-async function filterEvents() {
-  for(let i = 0; i < post.length; i++){
-    for(let n = 0; n < post[i].tags; n++){
-      if(post[i].tags[i] == tag[i].id && tag[i].name == filter){
-        console.log(post[i].tags)
+} 
+function filterEvents(events) {
+  for(let listTags of events.tags){
+    for(let i = 0; i < tag.length; i++){
+      if(listTags === tag[i].id && tag[i].name == this){
         return true;
-      }
-      else {
-        return false
-      }
-    }
-
   }
 }
+  }
+}
+  
+  
+    
 
 //shows data but not in right , maybe need to fix months api
 async function createContent(filter) {
@@ -65,7 +71,7 @@ async function createContent(filter) {
     displayContent(category, posts)
   }
   else {
-    let processedPosts = await post.filter(filterEvents, filter);
+    let processedPosts = posts.filter(filterEvents, filter);
     displayContent(category, processedPosts)
   }
   
