@@ -8,6 +8,16 @@ let tags =
 let eventDiv = document.querySelector(".events");
 let tag = "";
 
+let studBtn = document.querySelector("#student");
+
+studBtn.addEventListener("click", function(){
+    filterTest()
+});
+
+function filterTest(){
+        startProcess(category, posts, event.target.id);
+    
+}
 //universal function to fetch
 async function fetchApi(api) {
   try {
@@ -21,14 +31,29 @@ async function fetchApi(api) {
 fetchApi(posts);
 
 //shows data but not in right , maybe need to fix months api
-async function createAndShow(months, events) {
+async function createAndShow(months, events, filter) {
   tag = await tagHandler(tags);
+  if(!filter){
+    console.log("all");
+  }
+  else{
+      console.log(filter);
+  }
   let result = "";
   let eachMonth = "";
   let sortedMonths = sortMonths(months);
   for (let months of sortedMonths) {
     eachMonth += `</div><div class="${months.name}"><h2> ${months.name} </h2>`; // spør lasse om dette
     for (let i = 0; i < events.length; i++) {
+        events[i].id = "";
+        for (let n = 0; n < tag.length; n++) {
+            for (let m = 0; m <= 3; m++) {
+        if(events[i].tags[m] == tag[n].id) {
+            events[i].id +=[tag[n].name] + " ";
+        }
+    }
+        }            
+
       if (events[i].categories[0] == months.id) {
         eachMonth += `<p> ${events[i].title.rendered} </p>`;
       } else {
@@ -37,33 +62,31 @@ async function createAndShow(months, events) {
 
       result += eachMonth;
       //remove data for next loop
-      console.log(eachMonth);
       eachMonth = "";
     }
   }
   eventDiv.innerHTML = result;
+  console.log(events)
 }
 
 async function tagHandler(tags) {
   tag = await fetchApi(tags);
   console.log(tag);
-  for (let i = 0; i < tag.length; i++) {
-    tag[i].id = tag[i].name;
-  }
   return tag;
 }
 
-/* 
-    if (events[i].id != tag[i].id) {
-        events[i].id = tag[i].id;
-    }
 
-*/
 
-async function startProcess(catID, postCatId) {
+async function startProcess(catID, postCatId, filter="all") {
+    
   let categoryId = await fetchApi(catID);
   let postCategoryId = await fetchApi(postCatId);
+  if(filter ==="all"){
   createAndShow(categoryId, postCategoryId);
+    }
+    else{
+        createAndShow(catID, postCategoryId, filter)
+}
 }
 startProcess(category, posts);
 
@@ -74,3 +97,4 @@ function sortMonths(months) {
   });
   return monthsSorted;
 }
+
