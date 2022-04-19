@@ -47,7 +47,7 @@ async function createAndShow(months, events, filter) {
     for (let i = 0; i < events.length; i++) {
         events[i].id = "";
         for (let n = 0; n < tag.length; n++) {
-            for (let m = 0; m <= 3; m++) {
+            for (let m = 0; m < events[i].tags.length; m++) {
         if(events[i].tags[m] == tag[n].id) {
             events[i].id +=[tag[n].name] + " ";
         }
@@ -55,11 +55,11 @@ async function createAndShow(months, events, filter) {
         }            
 
       if (events[i].categories[0] == months.id) {
-        eachMonth += `<p id="${events[i].id}"> ${events[i].title.rendered} </p>`;
+        eachMonth += `<p class="${events[i].id}"> ${events[i].title.rendered} </p>`;
       } else {
         continue;
       }
-
+console.log(events);
       result += eachMonth;
       //remove data for next loop
       eachMonth = "";
