@@ -1,30 +1,34 @@
 console.log("hello from fetchApi");
+
+//declaring api's
 let categoryUrl =
-  "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/categories?per_page=25";
+  "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/categories?per_page=50";
 let postsUrl =
-  "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/posts?per_page=25";
+  "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/posts?per_page=50";
 let tagsUrl =
-  "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/tags?per_page=25";
+  "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/tags?per_page=50";
+//declaring global values
 let eventDiv = document.querySelector(".events");
-tag = [];
-post = [];
-category = [];
-let studBtn = document.querySelector("#student");
-let laererBtn = document.querySelector("#laerer");
-let styretBtn = document.querySelector("#styret");
+let tag = [];
+let post = [];
+let letcategory = [];
+let processedPosts = "";
+let mainFilterTags = ["student", "laerer", "styret"];
+
+//declaring buttons and adding functionality
+let buttons = document.querySelectorAll("button");
+for (let button of buttons) {
+  button.addEventListener("click", function () {
+    createContent(event.target.id);
+  });
+}
+
+//showing unfiltered content on load
 document.querySelector("body").onload = startProcess();
 
-studBtn.addEventListener("click", function () {
-  createContent(event.target.id);
-});
-laererBtn.addEventListener("click", function () {
-  createContent(event.target.id);
-});
-styretBtn.addEventListener("click", function () {
-  createContent(event.target.id);
-});
-
-//universal function to fetch
+/**
+ * universal function to fetch
+ */
 async function fetchApi(api) {
   try {
     let response = await fetch(api);
@@ -35,14 +39,19 @@ async function fetchApi(api) {
   }
 }
 
-async function startProcess(filter) {
+/**
+ * function to start process and make api calls
+ */
+async function startProcess() {
   tag = await fetchApi(tagsUrl);
   posts = await fetchApi(postsUrl);
   category = await fetchApi(categoryUrl);
-  createContent(filter);
+  displayContent(category, posts);
 }
 
-
+/**
+ * filtering function
+ */
 function filterEvents(events) {
   for (let listTags of events.tags) {
     for (let i = 0; i < tag.length; i++) {
@@ -53,35 +62,50 @@ function filterEvents(events) {
   }
 }
 
-//shows data but not in right , maybe need to fix months api
-async function createContent(filter) {
-  if (!filter) {
-    displayContent(category, posts);
-  } else {
-    let processedPosts = posts.filter(filterEvents, filter);
-    displayContent(category, processedPosts);
-  }
-}
 /**
- * abcde
+ * Function to process data for chosen filter
+ */
+async function createContent(filter) {
+  // checks for no filter/reset button
+  if (!filter) {
+    processedPosts = posts;
+  }
+  // checks if a filter is already in use
+  else if (!processedPosts) {
+    processedPosts = posts.filter(filterEvents, filter);
+    // checks if the filter in use is one of the main filters
+  } else if (mainFilterTags.includes(filter)) {
+    processedPosts = posts.filter(filterEvents, filter);
+  }
+  // makes secondary filters work with primary filters
+  else {
+    processedPosts = processedPosts.filter(filterEvents, filter);
+  }
+  displayContent(category, processedPosts);
+}
+
+/**
+ * Function that generates html
  */
 async function displayContent(processedCategories, processedPosts) {
   let result = "";
   let eachMonth = "";
   let sortedMonths = await sortMonths(processedCategories);
+  // loops through all months
   for (let months of sortedMonths) {
     eachMonth += `<div id="${months.name}"><h2> ${months.name} </h2>`;
+    // loops through all posts for x month
     for (let i = 0; i < processedPosts.length; i++) {
       if (processedPosts[i].categories[0] == months.id) {
         eachMonth += `<p> ${processedPosts[i].title.rendered} </p>`;
       }
     }
-
+    // wipes months with no events
     if (!eachMonth.includes("<p>")) {
-      console.log("wiped " + months.name);
+      //console.log("wiped " + months.name);
       eachMonth = "";
     }
-
+    // pushes out html and gets loop ready for next month
     eachMonth += "</div>";
     result += eachMonth;
     eventDiv.innerHTML = result;
@@ -89,22 +113,12 @@ async function displayContent(processedCategories, processedPosts) {
   }
 }
 
-// quick function to sort months
+/**
+ * Sorting function for months
+ */
 async function sortMonths() {
   let monthsSorted = category.sort(function (a, b) {
     return a.slug - b.slug;
   });
   return monthsSorted;
 }
-
-
-
-
-/**
- * TO DO !!!
- * COMMENTS
- * BARE 1 API CALL
- * RESET KNAPP
- * FILTRERE 1 GANG TIL
- * 
- */
