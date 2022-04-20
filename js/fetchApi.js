@@ -1,6 +1,6 @@
 console.log("hello from fetchApi");
 let categoryUrl =
-  "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/categories";
+  "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/categories?per_page=25";
 let postsUrl =
   "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/posts?per_page=25";
 let tagsUrl =
@@ -36,16 +36,11 @@ async function fetchApi(api) {
   }
 }
 
-async function startProcess(filter = "all") {
+async function startProcess(filter) {
   tag = await fetchApi(tagsUrl);
   posts = await fetchApi(postsUrl);
   category = await fetchApi(categoryUrl);
-  if (filter === "all") {
-    createContent();
-  }
-  else {
-    createContent(filter)
-  }
+    createContent(filter);  
 }
 
 function filterTest() {
@@ -74,35 +69,39 @@ async function createContent(filter) {
     let processedPosts = posts.filter(filterEvents, filter);
     displayContent(category, processedPosts)
   }
-  
 }
+/**
+ * abcde
+ */
 async function displayContent(processedCategories, processedPosts){
   let result = "";
   let eachMonth = "";
   let sortedMonths = await sortMonths(processedCategories);
   for (let months of sortedMonths) {
-    eachMonth += `</div><div id="${months.name}"><h2> ${months.name} </h2>`; // spør lasse om dette
+    eachMonth += `<div id="${months.name}"><h2> ${months.name} </h2>`;
     for (let i = 0; i < processedPosts.length; i++) {
       if (processedPosts[i].categories[0] == months.id) {
-        eachMonth += `<p> ${processedPosts[i].title.rendered} </p>`;
-      } else {
-        continue;
+        eachMonth += `<p> ${processedPosts[i].title.rendered} </p>`;   
+             
+    }
       }
 
-      result += eachMonth;
-      //remove data for next loop
+
+      if (!eachMonth.includes("<p>")){
+        console.log("wiped " + months.name);
       eachMonth = "";
+
     }
+
+        eachMonth += "</div>";
+        result += eachMonth;
+        eventDiv.innerHTML = result;
+        eachMonth = "";
+    
   }
-  eventDiv.innerHTML = result;
 }
 
 
-async function tagHandler(tags) {
-  tag = await fetchApi(tags);
-  console.log(tag);
-  return tag;
-}
 
 
 
