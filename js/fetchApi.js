@@ -15,13 +15,13 @@ let styretBtn = document.querySelector("#styret");
 document.querySelector("body").onload = startProcess();
 
 studBtn.addEventListener("click", function () {
-  filterTest();
+  createContent(event.target.id);
 });
 laererBtn.addEventListener("click", function () {
-  filterTest();
+  createContent(event.target.id);
 });
 styretBtn.addEventListener("click", function () {
-  filterTest();
+  createContent(event.target.id);
 });
 
 //universal function to fetch
@@ -42,9 +42,7 @@ async function startProcess(filter) {
   createContent(filter);
 }
 
-function filterTest() {
-  startProcess(event.target.id);
-}
+
 function filterEvents(events) {
   for (let listTags of events.tags) {
     for (let i = 0; i < tag.length; i++) {
@@ -98,3 +96,15 @@ async function sortMonths() {
   });
   return monthsSorted;
 }
+
+
+
+
+/**
+ * TO DO !!!
+ * COMMENTS
+ * BARE 1 API CALL
+ * RESET KNAPP
+ * FILTRERE 1 GANG TIL
+ * 
+ */
