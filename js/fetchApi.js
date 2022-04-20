@@ -1,23 +1,29 @@
 console.log("hello from fetchApi");
-let category =
-  "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/categories";
-let posts =
+let categoryUrl =
+  "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/categories?per_page=25";
+let postsUrl =
   "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/posts?per_page=25";
-let tags =
+let tagsUrl =
   "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/tags?per_page=25";
 let eventDiv = document.querySelector(".events");
-let tag = "";
+tag = [];
+post = [];
+category = [];
+let studBtn = document.querySelector("#student");
+let laererBtn = document.querySelector("#laerer");
+let styretBtn = document.querySelector("#styret");
+document.querySelector("body").onload = startProcess();
 
-//let studBtn = document.querySelector("#student");
+studBtn.addEventListener("click", function () {
+  filterTest();
+});
+laererBtn.addEventListener("click", function () {
+  filterTest();
+});
+styretBtn.addEventListener("click", function () {
+  filterTest();
+});
 
-//studBtn.addEventListener("click", function(){
-//    filterTest()
-//});
-
-function filterTest(){
-        startProcess(category, posts, event.target.id);
-    
-}
 //universal function to fetch
 async function fetchApi(api) {
   try {
@@ -28,67 +34,67 @@ async function fetchApi(api) {
     console.log(error);
   }
 }
-fetchApi(posts);
+
+async function startProcess(filter) {
+  tag = await fetchApi(tagsUrl);
+  posts = await fetchApi(postsUrl);
+  category = await fetchApi(categoryUrl);
+  createContent(filter);
+}
+
+function filterTest() {
+  startProcess(event.target.id);
+}
+function filterEvents(events) {
+  for (let listTags of events.tags) {
+    for (let i = 0; i < tag.length; i++) {
+      if (listTags === tag[i].id && tag[i].name == this) {
+        return true;
+      }
+    }
+  }
+}
 
 //shows data but not in right , maybe need to fix months api
-async function createAndShow(months, events, filter) {
-  tag = await fetchApi(tags);
-  if(!filter){
-    console.log("all");
+async function createContent(filter) {
+  if (!filter) {
+    displayContent(category, posts);
+  } else {
+    let processedPosts = posts.filter(filterEvents, filter);
+    displayContent(category, processedPosts);
   }
-  else{
-      console.log(filter);
-  }
+}
+/**
+ * abcde
+ */
+async function displayContent(processedCategories, processedPosts) {
   let result = "";
   let eachMonth = "";
-  let sortedMonths = sortMonths(months);
+  let sortedMonths = await sortMonths(processedCategories);
   for (let months of sortedMonths) {
-    eachMonth += `</div><div class="${months.name}"><h2> ${months.name} </h2>`; // spør lasse om dette
-    for (let i = 0; i < events.length; i++) {
-        events[i].id = "";
-        for (let n = 0; n < tag.length; n++) {
-            for (let m = 0; m < events[i].tags.length; m++) {
-        if(events[i].tags[m] == tag[n].id) {
-            events[i].id +=[tag[n].name] + " ";
-        }
-    }
-        }            
-
-      if (events[i].categories[0] == months.id) {
-        eachMonth += `<p class="${events[i].id}"> ${events[i].title.rendered} </p>`;
-      } else {
-        continue;
+    eachMonth += `<div id="${months.name}"><h2> ${months.name} </h2>`;
+    for (let i = 0; i < processedPosts.length; i++) {
+      if (processedPosts[i].categories[0] == months.id) {
+        eachMonth += `<p> ${processedPosts[i].title.rendered} </p>`;
       }
-console.log(events);
-      result += eachMonth;
-      //remove data for next loop
+    }
+
+    if (!eachMonth.includes("<p>")) {
+      console.log("wiped " + months.name);
       eachMonth = "";
     }
+
+    eachMonth += "</div>";
+    result += eachMonth;
+    eventDiv.innerHTML = result;
+    eachMonth = "";
   }
-  eventDiv.innerHTML = result;
-  console.log(events)
 }
-
-async function startProcess(catID, postCatId, filter="all") {
-
-    
-  let categoryId = await fetchApi(catID);
-  let postCategoryId = await fetchApi(postCatId);
-  if(filter ==="all"){
-  createAndShow(categoryId, postCategoryId);
-    }
-    else{
-        createAndShow(catID, postCategoryId, filter)
-}
-}
-startProcess(category, posts);
 
 // quick function to sort months
-function sortMonths(months) {
-  let monthsSorted = months.sort(function (a, b) {
+async function sortMonths() {
+  let monthsSorted = category.sort(function (a, b) {
     return a.slug - b.slug;
   });
   return monthsSorted;
 }
-
-
