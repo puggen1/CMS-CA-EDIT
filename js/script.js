@@ -13,6 +13,8 @@ let tag = [];
 let post = [];
 let letcategory = [];
 let processedPosts = "";
+//for easier second hand filter, tbc
+let currentMainFilter = "";
 let mainFilterTags = ["student", "laerer", "styret"];
 
 //declaring buttons and adding functionality
@@ -69,13 +71,24 @@ async function createContent(filter) {
   // checks for no filter/reset button
   if (!filter) {
     processedPosts = posts;
+    currentMainFilter = "";
+    console.log(currentMainFilter + "Filteret er resettet!")
   }
   // checks if a filter is already in use
+
   else if (!processedPosts) {
     processedPosts = posts.filter(filterEvents, filter);
-    // checks if the filter in use is one of the main filters
+    currentMainFilter = filter;
+    console.log(currentMainFilter + " er satt som filter")
+    // checks if the new filter pressed is one of the main filters
   } else if (mainFilterTags.includes(filter)) {
     processedPosts = posts.filter(filterEvents, filter);
+    currentMainFilter = filter;
+    console.log(currentMainFilter + " er satt som filter")
+  }
+  else if(currentMainFilter != ""){
+    processedPosts = posts.filter(filterEvents, currentMainFilter);
+   processedPosts = processedPosts.filter(filterEvents, filter);
   }
   // makes secondary filters work with primary filters
   else {
@@ -83,6 +96,11 @@ async function createContent(filter) {
   }
   displayContent(category, processedPosts);
 }
+
+
+
+
+
 
 /**
  * Function that generates html
