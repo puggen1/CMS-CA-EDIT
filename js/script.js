@@ -72,23 +72,21 @@ async function createContent(filter) {
   if (!filter) {
     processedPosts = posts;
     currentMainFilter = "";
-    console.log(currentMainFilter + "Filteret er resettet!")
+    console.log(currentMainFilter + "Filteret er resettet!");
   }
   // checks if a filter is already in use
-
   else if (!processedPosts) {
     processedPosts = posts.filter(filterEvents, filter);
     currentMainFilter = filter;
-    console.log(currentMainFilter + " er satt som filter")
+    console.log(currentMainFilter + " er satt som filter");
     // checks if the new filter pressed is one of the main filters
   } else if (mainFilterTags.includes(filter)) {
     processedPosts = posts.filter(filterEvents, filter);
     currentMainFilter = filter;
-    console.log(currentMainFilter + " er satt som filter")
-  }
-  else if(currentMainFilter != ""){
+    console.log(currentMainFilter + " er satt som filter");
+  } else if (currentMainFilter != "") {
     processedPosts = posts.filter(filterEvents, currentMainFilter);
-   processedPosts = processedPosts.filter(filterEvents, filter);
+    processedPosts = processedPosts.filter(filterEvents, filter);
   }
   // makes secondary filters work with primary filters
   else {
@@ -96,11 +94,6 @@ async function createContent(filter) {
   }
   displayContent(category, processedPosts);
 }
-
-
-
-
-
 
 /**
  * Function that generates html
