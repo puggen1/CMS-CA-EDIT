@@ -104,11 +104,11 @@ async function displayContent(processedCategories, processedPosts) {
   let sortedMonths = await sortMonths(processedCategories);
   // loops through all months
   for (let months of sortedMonths) {
-    eachMonth += `<div id="${months.name}"><h2> ${months.name} </h2>`;
+    eachMonth += `</div> <div class="month" id="${months.name}"> <section class="bottom"><div class="circle"> <h2> ${months.name} </h2> </div></section><div class="event">`;
     // loops through all posts for x month
     for (let i = 0; i < processedPosts.length; i++) {
       if (processedPosts[i].categories[0] == months.id) {
-        eachMonth += `<p> ${processedPosts[i].title.rendered} </p>`;
+        eachMonth += `<p>  ${processedPosts[i].title.rendered} </p>`;
       }
     }
     // wipes months with no events
