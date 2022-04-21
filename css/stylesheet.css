@@ -1,3 +1,19 @@
+@keyframes loading {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+.loader{
+    border-radius: 50%;
+    border-top: solid black 5px;
+    border-right: solid black 5px;
+    height: 100px;
+    width: 100px;
+    animation: loading 1s linear  infinite;
+}
+
+.hidden{
+    display: none;
+}
 body{
     margin: 0;
 }

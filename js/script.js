@@ -22,7 +22,27 @@ let buttons = document.querySelectorAll("button");
 for (let button of buttons) {
   button.addEventListener("click", function () {
     createContent(event.target.id);
+    isPressed(event.target.id);
   });
+}
+function isPressed(){
+  if(event.target.name =="visAlt"){
+    console.log("denne må det gjøres noen med");
+  }
+  if(mainFilterTags.includes(event.target.id)){
+    event.target.classList.toggle("pressed");
+    for(let button of buttons){
+      let list = button.classList
+    if(list[0] =="hidden"){
+      list.toggle("hidden");
+    }
+    if( event.target.classList[0]!== "pressed" && !mainFilterTags.includes(button.id)){
+      console.log(button.id);
+      button.classList.toggle("hidden");
+    }
+    }
+  }
+  
 }
 
 //showing unfiltered content on load
