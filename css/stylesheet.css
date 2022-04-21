@@ -51,6 +51,10 @@ button{
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
 }
+button.pressed{
+    background-color: #FF2F02;
+    color: white;
+}
 .events{
     width: 75%;
     margin: 0 auto;
