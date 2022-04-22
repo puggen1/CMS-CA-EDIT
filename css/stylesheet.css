@@ -46,12 +46,15 @@ h1, h3{
     text-align: center;
 }
 
+
 p{
     font-family: 'raleway', sans-serif;
+    
 
 }
 button{
     background-color: #d8d8d8;
+    color: black;   
     border-radius: 6px;
     border: none;   
     height: 40px;
@@ -74,8 +77,9 @@ display: flex;
 flex-direction: column;
 
 }
-.month h2{
+h2{
     text-align: center;
+    font-size: 1.3rem;
     
 }
 .circle{
@@ -91,16 +95,21 @@ flex-direction: column;
 .event{
     background-color: #d8d8d8;
     border-radius: 0 10px 10px 0;
+    box-sizing: border-box;
     width: 100%;
-    padding: 5px 10px;
+    padding: 0px 15px 0px 30px;
     margin-bottom: 10px;
 
+}
+
+.event p {
+    display: list-item;
 }
 .bottom{
     border-bottom: solid 2px black;
     width: 100px;
 }
-
+/*PIL REMOVER INTILL VIDERE*/
 .down{
     left: 12.5%;
     top: 11px;
@@ -115,11 +124,14 @@ flex-direction: column;
 footer{
     background-color: #FF2F02;
     height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 footer p{
     color: white;
     text-align: center;
-    max-width: 100%;
+    max-width: 100%;    
 }
 /* for bigger screens */
 @media screen and (min-width: 650px) {
@@ -154,10 +166,10 @@ footer p{
         }
     .month{
         display: grid;
-        grid-template-columns: 212px 2fr;
+        grid-template-columns: 230px 2fr;
         margin-bottom: 10px;
         background-color: #d8d8d8;
-        border-radius: 105px;
+        border-radius: 118px;
 
 
     }
@@ -166,22 +178,24 @@ footer p{
     }
     .event{
         background-color: transparent;
-        margin-left: 20px;
-
+        margin-left: 2rem;
+    
     }
+
     .bottom{
         border-right: solid 2px black;
         border-bottom: none;
         width: 212px;
-        padding-right: 20px;    
+        padding-right: 28px;    
 
     }
     .down{
         left: 42.8%;
+        display: none;
     }
     .circle{
-        width: 212px;
-        height: 212px;
+        width: 230px;
+        height: 230px;
         background-color: white;
         }
 }
@@ -193,7 +207,7 @@ footer p{
         grid-template-columns: 1fr 1fr 1fr auto;
     }
     main{
-        width: 70%;
+        width: 75%;
     }
     .down{
         left: 35.65%;
