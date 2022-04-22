@@ -4,8 +4,8 @@
 }
 .loader{
     border-radius: 50%;
-    border-top: solid black 5px;
-    border-right: solid black 5px;
+    border-top: solid black 1px;
+    border-right: solid black 1px;
     height: 100px;
     width: 100px;
     animation: loading 1s linear  infinite;
@@ -32,6 +32,7 @@ header img{
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    justify-items: center;
     row-gap: 10px;
     width: 40%;
     margin-bottom: 20px;
@@ -72,7 +73,7 @@ flex-direction: column;
     
 }
 .circle{
-    border: solid 1px black;
+    border: solid 3px black;
     border-radius: 50%;
     width: 100px;
     height: 100px;
@@ -101,4 +102,78 @@ flex-direction: column;
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
     border-top: 20px solid black;
+}
+
+/* for bigger screens */
+@media screen and (min-width: 650px) {
+    main{
+        width: 100%;
+        margin: 0 auto;
+    }
+    header{
+        display: grid;
+        padding: 5px 10px;
+        grid-template-columns: 1fr 1fr auto auto;
+    }
+    header img{
+       grid-column: 1/2;
+
+    }
+    #btns{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto auto;
+        margin: 20px auto;
+        width: 75%;
+        }
+        button  {
+            width: 120px;
+        }
+    .month{
+        display: grid;
+        grid-template-columns: 212px 2fr;
+        margin-bottom: 10px;
+        background-color: #d8d8d8;
+        border-radius: 105px;
+
+
+    }
+    .events{
+        border: none;
+    }
+    .event{
+        background-color: transparent;
+        margin-left: 20px;
+
+    }
+    .bottom{
+        border-right: solid 2px black;
+        border-bottom: none;
+        width: 212px;
+        padding-right: 20px;    
+
+    }
+    .down{
+        left: 42.8%;
+    }
+    .circle{
+        width: 212px;
+        height: 212px;
+        background-color: white;
+        }
+}
+
+@media screen and (min-width:1024px){
+    header{
+        display: grid;
+        padding: 5px 10px;
+        grid-template-columns: 1fr 1fr 1fr auto;
+    }
+    main{
+        width: 70%;
+    }
+    .down{
+        left: 35.65%;
+    }
+
 }
