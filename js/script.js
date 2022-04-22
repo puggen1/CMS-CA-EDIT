@@ -25,25 +25,60 @@ for (let button of buttons) {
     isPressed(event.target.id);
   });
 }
+
+
+/**
+ * Makes buttons work visually
+ */
 function isPressed(){
+  // Fixes show all button
   if(event.target.name =="visAlt"){
-    console.log("denne må det gjøres noen med");
+    for (let button of buttons){
+      let list = button.classList
+      if (!mainFilterTags.includes(button.id)) {
+      list.toggle("hidden");
+            } else {
+        list.remove("pressed")
+      }
+    }
   }
+  // Shows secondary buttons
   if(mainFilterTags.includes(event.target.id)){
     event.target.classList.toggle("pressed");
     for(let button of buttons){
       let list = button.classList
-    if(list[0] =="hidden"){
+    if(list =="hidden"){
       list.toggle("hidden");
     }
-    if( event.target.classList[0]!== "pressed" && !mainFilterTags.includes(button.id)){
-      console.log(button.id);
+    // Makes primary buttons show and hide secondary buttons
+    if(event.target.classList[0]!== "pressed" && !mainFilterTags.includes(button.id)){
       button.classList.toggle("hidden");
-    }
-    }
+ 
+      // deselects primary buttons
+     } if(event.target.classList[0] == "pressed" && mainFilterTags.includes(button.id) && button.id != event.target.id){
+       button.classList.remove("pressed");
+      }
   }
   
-}
+  } else {
+        if (event.target.classList != "pressed") {
+        for(let button of buttons){
+          if (!mainFilterTags.includes(button.id)) {     
+            console.log (button.id + mainFilterTags)
+            
+            button.classList.remove("pressed");
+            console.log("123")
+          }
+          } 
+          event.target.classList = "pressed";
+          console.log("teads");
+        }      
+       else {
+         console.log("removurghbehv")
+        event.target.classList.remove("pressed");
+      }
+    }
+  }
 
 //showing unfiltered content on load
 document.querySelector("body").onload = startProcess();
@@ -89,28 +124,22 @@ function filterEvents(events) {
  */
 async function createContent(filter) {
   // checks for no filter/reset button
-  if (!filter) {
+  if (!filter || currentMainFilter == event.target.id) {
     processedPosts = posts;
     currentMainFilter = "";
     console.log(currentMainFilter + "Filteret er resettet!");
   }
-  // checks if a filter is already in use
-  else if (!processedPosts) {
-    processedPosts = posts.filter(filterEvents, filter);
-    currentMainFilter = filter;
-    console.log(currentMainFilter + " er satt som filter");
     // checks if the new filter pressed is one of the main filters
-  } else if (mainFilterTags.includes(filter)) {
+   else if (mainFilterTags.includes(filter)) {
     processedPosts = posts.filter(filterEvents, filter);
     currentMainFilter = filter;
-    console.log(currentMainFilter + " er satt som filter");
-  } else if (currentMainFilter != "") {
+    console.log(currentMainFilter + " er satt som filter");  
+    // makes secondary filters work
+  } else {
     processedPosts = posts.filter(filterEvents, currentMainFilter);
     processedPosts = processedPosts.filter(filterEvents, filter);
-  }
-  // makes secondary filters work with primary filters
-  else {
-    processedPosts = processedPosts.filter(filterEvents, filter);
+    console.log(filter + " er satt som andre filter");
+
   }
   displayContent(category, processedPosts);
 }
