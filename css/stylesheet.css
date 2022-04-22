@@ -55,10 +55,12 @@ button.pressed{
     background-color: #FF2F02;
     color: white;
 }
+
 .events{
     width: 75%;
     margin: 0 auto;
     border-left: solid black 2px;
+
 }
 .month{
 display: flex;
@@ -88,15 +90,15 @@ flex-direction: column;
     border-bottom: solid 2px black;
     width: 100px;
 }
-/*
+
 .down{
-    position: absolute;
-    left: 7.3%;
+    left: 12.5%;
+    top: 11px;
+    position: relative;
+    transform: translate(-50%, -50%);
     width: 0; 
-  height: 0; 
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  
-  border-top: 20px solid black;
+    height: 0; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid black;
 }
-*/
