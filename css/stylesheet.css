@@ -25,8 +25,13 @@ header{
     justify-content: center;
     align-items: center;
 }
+header a{
+    width: 100%;
+    display: contents;
+}
 header img{
     width: 50%;
+
     height: 70px;
 }
 #btns{
@@ -39,8 +44,21 @@ header img{
     margin-bottom: 20px;
 }
 #info{
-    margin: 0 auto;
+    background-color: #d8d8d8;
+    padding: 5px 35px;
+    margin: 10px 10px;
+    border-radius: 15px;
 }
+/* h1 and info button*/
+.info{
+display: grid;
+grid-template-columns: auto auto;
+align-items: center;
+}
+i{
+    font-size: 50px;
+}
+
 h1, h3{
     font-family: "roboto", sans-serif;
     text-align: center;
@@ -98,7 +116,7 @@ h2{
     box-sizing: border-box;
     width: 100%;
     padding: 0px 15px 0px 30px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 
 }
 
@@ -135,6 +153,9 @@ footer p{
 }
 /* for bigger screens */
 @media screen and (min-width: 650px) {
+    #info{
+        background-color: transparent;
+    }
     p{
         max-width: 80%;
     }
