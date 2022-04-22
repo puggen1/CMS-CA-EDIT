@@ -37,9 +37,11 @@ header img{
     width: 40%;
     margin-bottom: 20px;
 }
-h1{
+h1, h3{
+    font-family: "roboto", sans-serif;
     text-align: center;
 }
+
 p{
     font-family: 'raleway', sans-serif;
 
@@ -77,6 +79,9 @@ flex-direction: column;
     border-radius: 50%;
     width: 100px;
     height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
 }
 .event{
@@ -103,9 +108,20 @@ flex-direction: column;
     border-right: 20px solid transparent;
     border-top: 20px solid black;
 }
-
+footer{
+    background-color: #FF2F02;
+    height: 100px;
+}
+footer p{
+    color: white;
+    text-align: center;
+    max-width: 100%;
+}
 /* for bigger screens */
 @media screen and (min-width: 650px) {
+    p{
+        max-width: 80%;
+    }
     main{
         width: 100%;
         margin: 0 auto;
