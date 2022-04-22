@@ -3,6 +3,7 @@
     100% {transform: rotate(360deg);}
 }
 .loader{
+    margin: 0 auto;
     border-radius: 50%;
     border-top: solid black 1px;
     border-right: solid black 1px;
@@ -36,6 +37,9 @@ header img{
     row-gap: 10px;
     width: 40%;
     margin-bottom: 20px;
+}
+#info{
+    margin: 0 auto;
 }
 h1, h3{
     font-family: "roboto", sans-serif;
@@ -121,6 +125,9 @@ footer p{
 @media screen and (min-width: 650px) {
     p{
         max-width: 80%;
+    }
+    h2{
+        font-size: 2rem;
     }
     main{
         width: 100%;
