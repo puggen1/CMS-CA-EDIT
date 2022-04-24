@@ -153,9 +153,15 @@ footer p{
 }
 /* for bigger screens */
 @media screen and (min-width: 650px) {
-    #info{
-        background-color: transparent;
+
+    .info {
+        grid-template-columns: 1fr;
+
     }
+    #infoIcon {
+        display: none;
+    }
+
     p{
         max-width: 80%;
     }
