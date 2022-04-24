@@ -25,6 +25,19 @@ for (let button of buttons) {
     isPressed(event.target.id);
   });
 }
+//getting info icon and info text
+let infoIcon = document.querySelector("#infoIcon");
+let infoText = document.querySelector("#info");
+infoIcon.addEventListener("click", function(){
+  if(infoText.style.display === "none"){
+    infoText.style.display = "block";
+  }
+  else{
+    infoText.style.display="none";
+  }
+ 
+  
+})
 /**
  * Makes buttons work visually
  */
