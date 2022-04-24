@@ -48,6 +48,15 @@ header img{
     width: 40%;
     margin-bottom: 20px;
 }
+#secondary{
+    border-top: solid #FF2F02 2px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding-top: 20px;
+    margin-top: 10px;
+
+}
 #info{
     background-color: #d8d8d8;
     display: none;
@@ -228,6 +237,14 @@ footer p{
         margin: 20px auto;
         width: 75%;
         }
+    #secondary{
+        grid-column: 1/4;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-items: center;
+        
+    }
     button  {
         width: 120px;
         }
