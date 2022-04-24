@@ -2,11 +2,16 @@
     0% {transform: rotate(0deg);}
     100% {transform: rotate(360deg);}
 }
+body{
+    height: 100%;
+}
 .loader{
-    margin: 0 auto;
+    margin: 20px auto;
     border-radius: 50%;
     border-top: solid black 1px;
     border-right: solid black 1px;
+    border-bottom: solid black 1px;
+    border-left: solid white 1px;
     height: 100px;
     width: 100px;
     animation: loading 1s linear  infinite;
@@ -101,7 +106,8 @@ h2{
     
 }
 .circle{
-    border: solid 3px black;
+    border: solid 5px black;
+    border-top: #FF2F02 solid 5px;
     border-radius: 50%;
     width: 100px;
     height: 100px;
@@ -110,6 +116,32 @@ h2{
     justify-content: center;
 
 }
+/*kvartal*/
+.qOne{
+    transform: rotate(45deg);
+}
+.qOne h2{
+    transform: rotate(-45deg);
+}
+.qTwo{
+    transform: rotate(135deg);
+}
+.qTwo h2{
+    transform: rotate(-135deg);
+}
+.qThree{
+    transform: rotate(225deg);
+}
+.qThree h2{
+    transform: rotate(-225deg);
+}
+.qFour{
+    transform: rotate(315deg);
+}
+.qFour h2{
+    transform: rotate(-315deg);
+}
+/*###############################*/
 .event{
     background-color: #d8d8d8;
     border-radius: 0 10px 10px 0;
@@ -139,7 +171,7 @@ h2{
     border-right: 20px solid transparent;
     border-top: 20px solid black;
 }
-footer{
+footer{ 
     background-color: #FF2F02;
     height: 100px;
     display: flex;
@@ -161,7 +193,9 @@ footer p{
     #infoIcon {
         display: none;
     }
-
+    #info{
+        margin: 0 auto;
+    }
     p{
         max-width: 80%;
     }

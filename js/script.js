@@ -183,10 +183,23 @@ async function createContent(filter) {
 async function displayContent(processedCategories, processedPosts) {
   let result = "";
   let eachMonth = "";
+  let quarter="";
   let sortedMonths = await sortMonths(processedCategories);
   // loops through all months
   for (let months of sortedMonths) {
-    eachMonth += `</div> <div class="month" id="${months.name}"> <section class="bottom"><div class="circle"> <h2> ${months.name} </h2> </div></section><div class="event">`;
+    if(months.slug <= 3 ){
+      quarter ="qOne";
+    }
+    else if(months.slug <= 6){
+      quarter = "qTwo";
+    }
+    else if(months.slug <= 9){
+      quarter = "qThree";
+    }
+    else{
+      quarter = "qFour";
+    }
+    eachMonth += `</div> <div class="month" id="${months.name}"> <section class="bottom"><div class="circle ${quarter}"> <h2> ${months.name} </h2> </div></section><div class="event">`;
     // loops through all posts for x month
     for (let i = 0; i < processedPosts.length; i++) {
       if (processedPosts[i].categories[0] == months.id) {
