@@ -161,6 +161,7 @@ h2{
 .bottom{
     border-bottom: solid 2px black;
     width: 100px;
+    padding-bottom:1px ;
 }
 /*PIL REMOVER INTILL VIDERE*/
 .down{
