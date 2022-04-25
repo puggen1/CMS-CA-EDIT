@@ -1,5 +1,3 @@
-console.log("hello from fetchApi");
-
 //declaring api's
 let categoryUrl =
   "https://www.bendik.one/www/noroffquality/wp-json/wp/v2/categories?per_page=50";
@@ -29,14 +27,7 @@ for (let button of buttons) {
 let infoIcon = document.querySelector("#infoIcon");
 let infoText = document.querySelector("#info");
 infoIcon.addEventListener("click", function(){
-  if(infoText.style.display === "none"){
-    infoText.style.display = "block";
-  }
-  else{
-    infoText.style.display="none";
-  }
- 
-  
+  infoText.classList.toggle("hiddenMobile");
 })
 /**
  * Makes buttons work visually
@@ -81,14 +72,12 @@ function isPressed() {
             !mainFilterTags.includes(button.id) &&
             event.target.classList[0] == "pressed"
           ) {
-            console.log("YES");
             button.classList.remove("pressed");
           }
         }
       }
     }
   } else {
-    console.log(event.target);
     // makes show all reset all presses
     if (event.target.name == "visAlt") {
       for (let button of buttons) {
@@ -99,19 +88,15 @@ function isPressed() {
     else if (event.target.classList != "pressed") {
       for (let button of buttons) {
         if (!mainFilterTags.includes(button.id)) {
-          console.log(button.id + mainFilterTags);
 
           button.classList.remove("pressed");
-          console.log("123");
         }
       }
       // makes button pressed if second filter
       event.target.classList = "pressed";
-      console.log("teads");
     }
     // removes pressed if pressed again
     else {
-      console.log("removurghbehv");
       event.target.classList.remove("pressed");
       createContent(currentMainFilter);
     }
@@ -174,7 +159,7 @@ async function createContent(filter) {
       }
     }
 
-    console.log(currentMainFilter + "Filteret er resettet!");
+    console.log("Filteret er resettet!");
   }
   // checks if the new filter pressed is one of the main filters
   else if (mainFilterTags.includes(filter)) {
@@ -221,7 +206,6 @@ async function displayContent(processedCategories, processedPosts) {
     }
     // wipes months with no events
     if (!eachMonth.includes("<p>")) {
-      //console.log("wiped " + months.name);
       eachMonth = "";
     }
     // pushes out html and gets loop ready for next month

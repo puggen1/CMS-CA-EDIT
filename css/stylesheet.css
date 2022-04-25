@@ -4,6 +4,9 @@
 }
 body{
     height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
 }
 .loader{
     margin: 20px auto;
@@ -48,7 +51,7 @@ header img{
     width: 40%;
     margin-bottom: 20px;
 }
-#secondary{
+.secondary{
     border-top: solid #FF2F02 2px;
     display: flex;
     flex-direction: column;
@@ -57,12 +60,14 @@ header img{
     margin-top: 10px;
 
 }
-#info{
+#info{ 
     background-color: #d8d8d8;
-    display: none;
     padding: 5px 35px;
     margin: 10px 10px;
     border-radius: 15px;
+}
+.hiddenMobile{
+    display: none;
 }
 /* h1 and info button*/
 .info{
@@ -94,11 +99,22 @@ button{
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
 }
+
 button.pressed{
     background-color: #FF2F02;
     color: white;
 }
 
+ [name=visAlt] {
+background-color: transparent;
+    
+}
+[name=visAlt]:hover{
+    font-weight: bold;
+    text-decoration: none;
+    background-color: transparent;
+    color: black;
+}
 .events{
     width: 75%;
     margin: 0 auto;
@@ -211,6 +227,9 @@ footer p{
         background-color: white;
         display: block;
     }
+    .hiddenMobile{
+        display: block;
+    }
     p{
         max-width: 80%;
     }
@@ -237,14 +256,37 @@ footer p{
         margin: 20px auto;
         width: 75%;
         }
-    #secondary{
+
+        button:hover{
+            background-color: #FF2F02;
+            color: white;
+            cursor: pointer;
+        }
+
+    .secondary{
         grid-column: 1/4;
+        grid-template-rows: auto auto;
         width: 100%;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
         justify-items: center;
         
     }
+    [name=visAlt] {
+        grid-row: 2/3;
+        grid-column: 1/4;
+        background-color: transparent;
+        text-decoration: underline;
+    }
+
+    [name=visAlt]:hover{
+        font-weight: bold;
+        text-decoration: none;
+        background-color: transparent;
+        color: black;
+    }
+
+
     button  {
         width: 120px;
         }
@@ -257,12 +299,14 @@ footer p{
 
 
     }
+   
     .events{
         border: none;
+        width: 95%;
     }
     .event{
         background-color: transparent;
-        margin-left: 2rem;
+        margin-bottom: 5px;
     
     }
 
@@ -296,6 +340,9 @@ footer p{
     }
     .down{
         left: 35.65%;
+    }
+    .events{
+        width: 75%;
     }
 
 }
