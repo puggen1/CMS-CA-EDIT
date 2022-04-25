@@ -8,8 +8,8 @@ let tagsUrl =
 //declaring global values
 let eventDiv = document.querySelector(".events");
 let tag = [];
-let post = [];
-let letcategory = [];
+let posts = [];
+let category = [];
 let processedPosts = "";
 //for easier second hand filter, tbc
 let currentMainFilter = "";

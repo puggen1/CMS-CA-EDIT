@@ -138,6 +138,12 @@ h2 {
   flex-direction: column;
   justify-content: center;
 }
+
+noscript {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
 /*kvartal*/
 .qOne {
   transform: rotate(45deg);
