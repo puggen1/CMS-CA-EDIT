@@ -15,6 +15,9 @@ let processedPosts = "";
 let currentMainFilter = "";
 let mainFilterTags = ["student", "laerer", "styret"];
 
+//showing unfiltered content on load
+document.querySelector("body").onload = startProcess();
+
 //declaring buttons and adding functionality
 let buttons = document.querySelectorAll("button");
 for (let button of buttons) {
@@ -26,9 +29,44 @@ for (let button of buttons) {
 //getting info icon and info text
 let infoIcon = document.querySelector("#infoIcon");
 let infoText = document.querySelector("#info");
-infoIcon.addEventListener("click", function(){
+infoIcon.addEventListener("click", function () {
   infoText.classList.toggle("hiddenMobile");
-})
+});
+/**
+ * universal function to fetch
+ */
+async function fetchApi(api) {
+  try {
+    let response = await fetch(api);
+    if (response.ok) {
+      return await response.json();
+    } else {
+      alert(
+        response.status +
+          " failed fetch, please try again or contact site owners"
+      );
+      document.getElementById("content").innerHTML =
+        "<p style='text-align: center; max-width: 100%;'>Error please try again</p>";
+    }
+  } catch (error) {
+    alert(error + "  please try again");
+
+    document.getElementById("content").innerHTML =
+      "<p style='text-align: center; max-width: 100%;'>Error please try again</p>";
+  }
+}
+/**
+ * function to start process and make api calls
+ */
+async function startProcess() {
+  tag = await fetchApi(tagsUrl);
+  posts = await fetchApi(postsUrl);
+  category = await fetchApi(categoryUrl);
+  for (let button of buttons) {
+    button.removeAttribute("disabled");
+  }
+  displayContent(category, posts);
+}
 /**
  * Makes buttons work visually
  */
@@ -88,7 +126,6 @@ function isPressed() {
     else if (event.target.classList != "pressed") {
       for (let button of buttons) {
         if (!mainFilterTags.includes(button.id)) {
-
           button.classList.remove("pressed");
         }
       }
@@ -101,35 +138,6 @@ function isPressed() {
       createContent(currentMainFilter);
     }
   }
-}
-
-//showing unfiltered content on load
-document.querySelector("body").onload = startProcess();
-
-/**
- * universal function to fetch
- */
-async function fetchApi(api) {
-  try {
-    let response = await fetch(api);
-
-    return await response.json();
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-/**
- * function to start process and make api calls
- */
-async function startProcess() {
-  tag = await fetchApi(tagsUrl);
-  posts = await fetchApi(postsUrl);
-  category = await fetchApi(categoryUrl);
-  for (let button of buttons) {
-  button.removeAttribute('disabled');
-  }
-  displayContent(category, posts);
 }
 
 /**
@@ -181,20 +189,17 @@ async function createContent(filter) {
 async function displayContent(processedCategories, processedPosts) {
   let result = "";
   let eachMonth = "";
-  let quarter="";
+  let quarter = "";
   let sortedMonths = await sortMonths(processedCategories);
   // loops through all months
   for (let months of sortedMonths) {
-    if(months.slug <= 3 ){
-      quarter ="qOne";
-    }
-    else if(months.slug <= 6){
+    if (months.slug <= 3) {
+      quarter = "qOne";
+    } else if (months.slug <= 6) {
       quarter = "qTwo";
-    }
-    else if(months.slug <= 9){
+    } else if (months.slug <= 9) {
       quarter = "qThree";
-    }
-    else{
+    } else {
       quarter = "qFour";
     }
     eachMonth += `</div> <div class="month" id="${months.name}"> <section class="bottom"><div class="circle ${quarter}"> <h2> ${months.name} </h2> </div></section><div class="event">`;
