@@ -106,6 +106,10 @@ button.pressed {
   color: white;
 }
 
+button:disabled {
+  background-color: #eae9e9;
+}
+
 [name="visAlt"] {
   background-color: transparent;
 }
@@ -140,9 +144,9 @@ h2 {
 }
 
 noscript {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 /*kvartal*/
 .qOne {
