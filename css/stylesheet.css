@@ -74,10 +74,13 @@ header img {
 }
 /* h1 and info button*/
 .info {
+  width: 90%;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns:  auto auto;
   align-items: center;
 }
+
 i {
   font-size: 50px;
 }
@@ -226,6 +229,7 @@ footer p {
     display: none;
   }
   #info {
+    max-width: 55%;
     margin: 0 auto;
     background-color: white;
     display: block;
