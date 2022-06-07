@@ -42,9 +42,7 @@ header a {
   display: contents;
 }
 header img {
-  width: 50%;
-
-  height: 70px;
+  max-height: 60%;
 }
 #btns {
   margin: 0 auto;
